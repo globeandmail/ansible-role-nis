@@ -4,10 +4,11 @@ ansible-role-nis
 This role is intended to install NIS, and manage yp.conf
 
 
-Variables (optional)
+Variables
 ------
 
 ```
+ansible_role_nis_domain: example-nis-domain.com
 ansible_role_nis_cfg_path: /path/to/group_files/nis/yp.conf
 ```
 

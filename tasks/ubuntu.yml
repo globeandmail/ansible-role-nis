@@ -1,4 +1,15 @@
 ---
+- name: Pre-set the nis domain
+  shell: echo "nis nis/domain string {{ ansible_role_nis_domain }} Y" | debconf-set-selections
+
+- name: Place defaultdomain file
+  template:
+    src: "defaultdomain.j2"
+    dest: "/etc/defaultdomain"
+    mode: 0644
+    owner: 'root'
+    group: 'root'
+
 - name: Install NIS
   apt:
     name: 'nis'
