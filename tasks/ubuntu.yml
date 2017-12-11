@@ -26,6 +26,12 @@
   when: ansible_role_nis_cfg_path is defined
   register: ansible_role_nis_cfg_installed
 
+- name: Add NIS group(s) to passwd
+  lineinfile:
+    path: /etc/passwd
+    line: "{{ item }}"
+  with_items: "{{ ansible_role_nis_groups | default([]) }}"
+
 - name: Enable & (re)start NIS
   service:
     name: "{{ansible_role_nis_svc_name}}"

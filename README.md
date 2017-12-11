@@ -10,6 +10,8 @@ Variables
 ```
 ansible_role_nis_domain: example-nis-domain.com
 ansible_role_nis_cfg_path: /path/to/group_files/nis/yp.conf
+ansible_role_nis_groups:
+- "+@nis-group::0:0:::"
 ```
 
 
