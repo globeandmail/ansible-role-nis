@@ -1,0 +1,2 @@
+---
+ansible_role_nis_svc_name: 'nis'
