@@ -2,14 +2,19 @@
 - name: check for supported operating system on target
   fail:
     msg: "the operating system of the target machine ({{ inventory_hostname }}) is not currently supported."
-  when: ( ansible_distribution|lower != "ubuntu" and ansible_distribution_major_version not in [12, 14, 16] )
+  when: ( ansible_distribution|lower != "ubuntu" and ansible_distribution_major_version not in [12, 14, 16, 18, 20] )
 
 - name: Group by major_version
   group_by:
     key: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}"
 
 - name: Include Distro-MajVer vars
-  include_vars: "{{ansible_distribution}}-{{ ansible_distribution_major_version }}/main.yml"
+  include_vars: "{{ansible_distribution}}-legacy/main.yml"
+  when: ( ansible_distribution_major_version in [12, 14] )
+
+- name: Include Distro-MajVer vars
+  include_vars: "{{ansible_distribution}}-current/main.yml"
+  when: ( ansible_distribution_major_version not in [12, 14] )
 
 - name: include distro specific tasks
   include: "{{ ansible_distribution|lower }}.yml"
