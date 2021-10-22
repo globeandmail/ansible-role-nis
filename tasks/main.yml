@@ -9,7 +9,12 @@
     key: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}"
 
 - name: Include Distro-MajVer vars
-  include_vars: "{{ansible_distribution}}-{{ ansible_distribution_major_version }}/main.yml"
+  include_vars: "{{ansible_distribution}}-legacy/main.yml"
+  when: ( ansible_distribution_major_version in [12, 14] )
+
+- name: Include Distro-MajVer vars
+  include_vars: "{{ansible_distribution}}-current/main.yml"
+  when: ( ansible_distribution_major_version not in [12, 14] )
 
 - name: include distro specific tasks
   include: "{{ ansible_distribution|lower }}.yml"
